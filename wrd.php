@@ -16,7 +16,6 @@ if (!empty ($_FILES['txt']['error'] == 0)) {
     echo "Найденный текст в файле: " . $str . "<br/>Разбор слов: <br/>";
     Printr($str);
     unlink($f);
-
 } else {
     echo "Файл не был загружен<br/>";
 }
