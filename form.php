@@ -4,19 +4,16 @@
 </form>
 
 <?php
-$conn = mysqli_connect("localhost", "mysql", "", "datba");
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+$pdo = new  PDO('mysql:dbname=datba;host=localhost:3306', 'mysql', '');
+$sqle = $pdo->prepare("SELECT id,content from uploaded_text ");
+$sqle->execute();
+while ($roww = $sqle->fetch(PDO::FETCH_LAZY)) {
 
-if (!$conn) {
-    die("Ошибка: " . mysqli_connect_error());
-} else {
-    $sqlr = ("SELECT id , content FROM  uploaded_text");
-    $rest = mysqli_query($conn,$sqlr);
-    while($roww = mysqli_fetch_array($rest)){
-        $id = $roww['id'];
-        $str = $roww['content'];
-        echo "<p> ID: $id CONTENT: $str </p>";
-    }
+    $id = $roww['id'];
+    $str = $roww['content'];
+    echo "<p> ID: $id CONTENT: $str </p>";
+
 }
-mysqli_close($conn);
+$pdo = null;
 ?>
+
